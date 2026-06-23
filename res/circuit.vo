@@ -1,0 +1,114 @@
+//Copyright (C)2014-2026 Gowin Semiconductor Corporation.
+//All rights reserved.
+//File Title: Post-PnR Verilog Simulation Model file
+//Tool Version: V1.9.12.02_SP2 (64-bit)
+//Created Time: Wed May 27 16:30:42 2026
+
+`timescale 100 ps/100 ps
+module full2adder(
+	a0,
+	a1,
+	b0,
+	b1,
+	cin,
+	s0,
+	s1,
+	cout
+);
+input a0;
+input a1;
+input b0;
+input b1;
+input cin;
+output s0;
+output s1;
+output cout;
+wire GND;
+wire VCC;
+wire a0;
+wire a0_d;
+wire a1;
+wire a1_d;
+wire b0;
+wire b0_d;
+wire b1;
+wire b1_d;
+wire cin;
+wire cin_d;
+wire cout;
+wire cout_d;
+wire s0;
+wire s0_d;
+wire s1;
+wire s1_d;
+wire \f1/cout_d_3 ;
+VCC VCC_cZ (
+  .V(VCC)
+);
+GND GND_cZ (
+  .G(GND)
+);
+GSR GSR (
+	.GSRI(VCC)
+);
+IBUF a0_ibuf (
+	.I(a0),
+	.O(a0_d)
+);
+IBUF a1_ibuf (
+	.I(a1),
+	.O(a1_d)
+);
+IBUF b0_ibuf (
+	.I(b0),
+	.O(b0_d)
+);
+IBUF b1_ibuf (
+	.I(b1),
+	.O(b1_d)
+);
+IBUF cin_ibuf (
+	.I(cin),
+	.O(cin_d)
+);
+OBUF s0_obuf (
+	.I(s0_d),
+	.O(s0)
+);
+OBUF s1_obuf (
+	.I(s1_d),
+	.O(s1)
+);
+OBUF cout_obuf (
+	.I(cout_d),
+	.O(cout)
+);
+LUT3 \f0/h2/s0_d_s  (
+	.I0(a0_d),
+	.I1(b0_d),
+	.I2(cin_d),
+	.F(s0_d)
+);
+defparam \f0/h2/s0_d_s .INIT=8'h96;
+LUT3 \f1/cout_d_s  (
+	.I0(\f1/cout_d_3 ),
+	.I1(a1_d),
+	.I2(b1_d),
+	.F(cout_d)
+);
+defparam \f1/cout_d_s .INIT=8'hE8;
+LUT3 \f1/cout_d_s0  (
+	.I0(a0_d),
+	.I1(b0_d),
+	.I2(cin_d),
+	.F(\f1/cout_d_3 )
+);
+defparam \f1/cout_d_s0 .INIT=8'hE8;
+LUT3 \f1/h2/s1_d_s  (
+	.I0(\f1/cout_d_3 ),
+	.I1(a1_d),
+	.I2(b1_d),
+	.F(s1_d)
+);
+defparam \f1/h2/s1_d_s .INIT=8'h96;
+endmodule

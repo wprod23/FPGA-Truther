@@ -1,0 +1,202 @@
+//Copyright (C)2014-2026 Gowin Semiconductor Corporation.
+//All rights reserved.
+//File Title: Post-PnR Verilog Simulation Model file
+//Tool Version: V1.9.12.02_SP2 (64-bit)
+//Created Time: Sun Jun 21 09:10:04 2026
+
+`timescale 100 ps/100 ps
+module bit4adder(
+	a0,
+	a1,
+	a2,
+	a3,
+	b0,
+	b1,
+	b2,
+	b3,
+	cin,
+	s0,
+	s1,
+	s2,
+	s3,
+	cout
+);
+input a0;
+input a1;
+input a2;
+input a3;
+input b0;
+input b1;
+input b2;
+input b3;
+input cin;
+output s0;
+output s1;
+output s2;
+output s3;
+output cout;
+wire GND;
+wire VCC;
+wire a0;
+wire a0_d;
+wire a1;
+wire a1_d;
+wire a2;
+wire a2_d;
+wire a3;
+wire a3_d;
+wire b0;
+wire b0_d;
+wire b1;
+wire b1_d;
+wire b2;
+wire b2_d;
+wire b3;
+wire b3_d;
+wire cin;
+wire cin_d;
+wire cout;
+wire cout_d;
+wire s0;
+wire s0_d;
+wire s1;
+wire s1_d;
+wire s1_d_3;
+wire s2;
+wire s2_d;
+wire s2_d_3;
+wire s3;
+wire s3_d;
+wire \f3/cout_d_3 ;
+wire \f3/cout_d_4 ;
+VCC VCC_cZ (
+  .V(VCC)
+);
+GND GND_cZ (
+  .G(GND)
+);
+GSR GSR (
+	.GSRI(VCC)
+);
+IBUF a0_ibuf (
+	.I(a0),
+	.O(a0_d)
+);
+IBUF a1_ibuf (
+	.I(a1),
+	.O(a1_d)
+);
+IBUF a2_ibuf (
+	.I(a2),
+	.O(a2_d)
+);
+IBUF a3_ibuf (
+	.I(a3),
+	.O(a3_d)
+);
+IBUF b0_ibuf (
+	.I(b0),
+	.O(b0_d)
+);
+IBUF b1_ibuf (
+	.I(b1),
+	.O(b1_d)
+);
+IBUF b2_ibuf (
+	.I(b2),
+	.O(b2_d)
+);
+IBUF b3_ibuf (
+	.I(b3),
+	.O(b3_d)
+);
+IBUF cin_ibuf (
+	.I(cin),
+	.O(cin_d)
+);
+OBUF s0_obuf (
+	.I(s0_d),
+	.O(s0)
+);
+OBUF s1_obuf (
+	.I(s1_d),
+	.O(s1)
+);
+OBUF s2_obuf (
+	.I(s2_d),
+	.O(s2)
+);
+OBUF s3_obuf (
+	.I(s3_d),
+	.O(s3)
+);
+OBUF cout_obuf (
+	.I(cout_d),
+	.O(cout)
+);
+LUT3 \f0/h2/s0_d_s  (
+	.I0(a0_d),
+	.I1(b0_d),
+	.I2(cin_d),
+	.F(s0_d)
+);
+defparam \f0/h2/s0_d_s .INIT=8'h96;
+LUT3 \f1/h2/s1_d_s  (
+	.I0(s1_d_3),
+	.I1(a1_d),
+	.I2(b1_d),
+	.F(s1_d)
+);
+defparam \f1/h2/s1_d_s .INIT=8'h96;
+LUT3 \f1/h2/s1_d_s0  (
+	.I0(a0_d),
+	.I1(b0_d),
+	.I2(cin_d),
+	.F(s1_d_3)
+);
+defparam \f1/h2/s1_d_s0 .INIT=8'hE8;
+LUT4 \f2/h2/s2_d_s  (
+	.I0(s1_d_3),
+	.I1(a1_d),
+	.I2(b1_d),
+	.I3(s2_d_3),
+	.F(s2_d)
+);
+defparam \f2/h2/s2_d_s .INIT=16'hE817;
+LUT2 \f2/h2/s2_d_s0  (
+	.I0(a2_d),
+	.I1(b2_d),
+	.F(s2_d_3)
+);
+defparam \f2/h2/s2_d_s0 .INIT=4'h9;
+LUT4 \f3/cout_d_s  (
+	.I0(a3_d),
+	.I1(b3_d),
+	.I2(\f3/cout_d_3 ),
+	.I3(\f3/cout_d_4 ),
+	.F(cout_d)
+);
+defparam \f3/cout_d_s .INIT=16'hEEE8;
+LUT4 \f3/cout_d_s0  (
+	.I0(s1_d_3),
+	.I1(a1_d),
+	.I2(b1_d),
+	.I3(s2_d_3),
+	.F(\f3/cout_d_3 )
+);
+defparam \f3/cout_d_s0 .INIT=16'h00E8;
+LUT2 \f3/cout_d_s1  (
+	.I0(a2_d),
+	.I1(b2_d),
+	.F(\f3/cout_d_4 )
+);
+defparam \f3/cout_d_s1 .INIT=4'h8;
+LUT4 \f3/h2/s3_d_s  (
+	.I0(\f3/cout_d_3 ),
+	.I1(\f3/cout_d_4 ),
+	.I2(a3_d),
+	.I3(b3_d),
+	.F(s3_d)
+);
+defparam \f3/h2/s3_d_s .INIT=16'hE11E;
+endmodule

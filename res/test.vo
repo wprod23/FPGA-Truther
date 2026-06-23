@@ -1,0 +1,40 @@
+// Clean Full Adder Netlist
+module full_adder;
+input a;
+input b;
+input cin;
+output sum;
+output cout;
+
+wire a_buf;
+wire b_buf;
+wire cin_buf;
+wire sum_internal;
+wire cout_internal;
+
+IBUF buf_a   (.I(a),   .O(a_buf));
+IBUF buf_b   (.I(b),   .O(b_buf));
+IBUF buf_cin (.I(cin), .O(cin_buf));
+
+// LUT3 for the Sum output
+// Equation: a ^ b ^ cin
+LUT3 sum_gate (
+    .dataa(a_buf),
+    .datab(b_buf),
+    .datac(cin_buf),
+    .combout(sum_internal)
+);
+defparam sum_gate.lut_mask = "8'h96";
+
+// LUT3 for the Carry Out output
+// Equation: (a & b) | (b & cin) | (a & cin)
+LUT3 cout_gate (
+    .dataa(a_buf),
+    .datab(b_buf),
+    .datac(cin_buf),
+    .combout(cout_internal)
+);
+defparam cout_gate.lut_mask = "8'hE8";
+
+OBUF buf_sum  (.I(sum_internal),  .O(sum));
+OBUF buf_cout (.I(cout_internal), .O(cout));
